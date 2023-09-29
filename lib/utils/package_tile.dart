@@ -9,25 +9,28 @@ class PackageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        decoration: BoxDecoration(
-          color: AppStyles.primaryColor,
-          border: Border.all(
-            color: Colors.grey,
-          ),
-          borderRadius: BorderRadius.circular(10),
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      height: 45,
+      decoration: BoxDecoration(
+        color: AppStyles.primaryColor,
+        border: Border.all(
+          color: Colors.grey,
         ),
-        child: Row(
-          children: [
-            Image.asset(
-              AssetContants.dartLogo,
-              height: 20,
-              width: 20,
-            ),
-            const SizedBox(width: 20),
-            Text(packageName),
-          ],
-        ));
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            AssetContants.dartLogo,
+            height: 20,
+            width: 20,
+          ),
+          const SizedBox(width: 20),
+          Text(packageName),
+        ],
+      ),
+    );
   }
 }

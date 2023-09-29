@@ -1,10 +1,10 @@
 import 'package_model.dart';
 
-class PackagePage {
+class PackageList {
   final List<Package> packages;
   final String? next;
 
-  PackagePage({
+  PackageList({
     required this.packages,
     this.next,
   });
@@ -16,9 +16,13 @@ class PackagePage {
     };
   }
 
-  factory PackagePage.fromMap(Map<String, dynamic> map) {
-    return PackagePage(
-      packages: List<Package>.from((map['packages'] ).map<Package>((x) => Package.fromMap(x as Map<String,dynamic>),),),
+  factory PackageList.fromMap(Map<String, dynamic> map) {
+    return PackageList(
+      packages: List<Package>.from(
+        (map['packages']).map<Package>(
+          (x) => Package.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
       next: map['next'] != null ? map['next'] as String : null,
     );
   }

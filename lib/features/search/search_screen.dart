@@ -5,7 +5,8 @@ import 'package:pub_dev_packages/constants/app_styles.dart';
 import 'package:pub_dev_packages/features/search/search_controller.dart';
 import 'package:pub_dev_packages/utils/loader.dart';
 import 'package:pub_dev_packages/utils/package_tile.dart';
-
+import 'package:pub_dev_packages/utils/skeleton.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../models/package_model.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -50,7 +51,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   void _resetParameters() {
-    isLoading = false;
     packages = [];
     pageNumber = 0;
   }
@@ -75,9 +75,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         packages.addAll(nextTenPackages);
       }
       setState(() {
-        if ([0, 1, 2, 3, 4, 5, 6, 7, 8].contains(pageNumber)) {
-          isLoading = false;
-        }
+        isLoading = false;
       });
     } catch (e) {
       print(e.toString());
@@ -98,7 +96,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         ref.watch(searchControllerProvider.notifier).nextPageAvailable;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         body: Container(
           color: AppStyles.backgroundColor,
           padding: const EdgeInsets.all(10),
@@ -136,7 +134,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
               const SizedBox(height: 20),
               isLoading
-                  ? const Expanded(child: Loader())
+                  ? _buildPackageListShimmer()
                   : Expanded(
                       child: ListView.builder(
                         controller: scrollController,
@@ -153,7 +151,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             );
                           }
                           return PackageTile(
-                              packageName: packages[index].package);
+                            packageName: packages[index].package,
+                          );
                         },
                       ),
                     ),
@@ -183,6 +182,25 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
               )
             : const SizedBox(),
+      ),
+    );
+  }
+
+  Widget _buildPackageListShimmer() {
+    return Expanded(
+      child: Shimmer.fromColors(
+        baseColor: AppStyles.secondaryColor,
+        highlightColor: AppStyles.whiteColor.withOpacity(0.2),
+        direction: ShimmerDirection.ttb,
+        child: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return const Skeleton(
+              height: 45,
+              width: double.infinity,
+            );
+          },
+        ),
       ),
     );
   }

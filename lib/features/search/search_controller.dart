@@ -26,20 +26,15 @@ class SearchController extends StateNotifier<bool> {
   bool nextPageAvailable = true;
 
   Future<List<Package>> getPage(String packageName, int pageNo) async {
-    _ref
-        .read(searchControllerProvider.notifier)
-        .updateShouldNotify(false, true);
     final pageData = await _apiServices.getQueryPage(
       packageName,
       pageNo,
     );
-    final page = PackagePage.fromMap(pageData);
+    final page = PackageList.fromMap(pageData);
     if (page.packages.length < 10) {
       nextPageAvailable = false;
     }
-    _ref
-        .read(searchControllerProvider.notifier)
-        .updateShouldNotify(true, false);
+
     return page.packages;
   }
 }
