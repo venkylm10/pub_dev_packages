@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pub_dev_packages/constants/app_styles.dart';
 import 'package:pub_dev_packages/constants/asset_contants.dart';
+import 'package:pub_dev_packages/globals/dart_logo.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
 
 class HomePackageTile extends StatelessWidget {
@@ -12,9 +13,6 @@ class HomePackageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final packageName = package.name.length > 25
-        ? '${package.name.substring(0, 25)} . .'
-        : package.name;
     final sdkVersion = package.latest.pubspec.environment?.sdk ?? '';
     final flutterVersion = package.latest.pubspec.environment?.flutter ?? '';
     return Container(
@@ -32,29 +30,16 @@ class HomePackageTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: AppStyles.darkBlue3,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Center(
-              child: Image.asset(
-                AssetContants.dartLogo,
-                height: 20,
-                width: 20,
-              ),
-            ),
-          ),
-          const SizedBox(width: 20),
+          dartLogo,
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  packageName,
-                  overflow: TextOverflow.fade,
+                  package.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: AppStyles.subHeadingStyle
                       .copyWith(color: AppStyles.whiteColor),
                 ),

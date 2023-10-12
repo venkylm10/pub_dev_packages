@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pub_dev_packages/constants/app_styles.dart';
 import 'package:pub_dev_packages/constants/asset_contants.dart';
+import 'package:pub_dev_packages/globals/dart_logo.dart';
 
 class PackageTile extends StatelessWidget {
   final String packageName;
@@ -11,7 +12,6 @@ class PackageTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      height: 45,
       decoration: BoxDecoration(
         color: AppStyles.primaryColor,
         border: Border.all(
@@ -22,13 +22,14 @@ class PackageTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            AssetContants.dartLogo,
-            height: 20,
-            width: 20,
-          ),
+          dartLogo,
           const SizedBox(width: 20),
-          Text(packageName),
+          Text(
+            packageName,
+            style: AppStyles.subHeadingStyle.copyWith(
+              color: AppStyles.whiteColor,
+            ),
+          ),
         ],
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pub_dev_packages/pages/home/home.dart';
-import 'package:pub_dev_packages/pages/package_details/markdown_test.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,11 +14,11 @@ void main() {
     systemNavigationBarColor: Colors.transparent,
   ));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -99,9 +99,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Some Flutter favorites",
-                style: AppStyles.subHeadingStyle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Some Flutter favorites",
+                    style: AppStyles.subHeadingStyle,
+                  ),
+                  Text(
+                    "know more",
+                    style: AppStyles.normalTextStyle.copyWith(
+                      color: AppStyles.blue1,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               isLoading ? _buildPackageListShimmer() : _buildPopularPackages(),

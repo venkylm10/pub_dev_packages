@@ -155,7 +155,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           itemCount: 20,
           itemBuilder: (context, index) {
             return const Skeleton(
-              height: 45,
+              height: 60,
               width: double.infinity,
             );
           },
