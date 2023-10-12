@@ -10,7 +10,11 @@ dependencies:
   dio: ^5.3.3
   flutter:
     sdk: flutter
+  flutter_markdown: ^0.6.17+3
   flutter_riverpod: ^2.4.1
+  fpdart: ^1.1.0
+  google_fonts: ^6.1.0
+  page_transition: ^2.1.0
   shimmer: ^3.0.0
 
 dev_dependencies:

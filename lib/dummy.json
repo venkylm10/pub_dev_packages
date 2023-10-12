@@ -1,0 +1,32 @@
+{
+    "name": "flutter_riverpod",
+    "latest": {
+        "version": "2.4.1",
+        "pubspec": {
+            "name": "flutter_riverpod",
+            "description": "A simple way to access state from anywhere in your application while robust and testable.\n",
+            "version": "2.4.1",
+            "homepage": "https://riverpod.dev",
+            "repository": "https://github.com/rrousselGit/riverpod",
+            "environment": {
+                "sdk": "\u003E=2.17.0 \u003C3.0.0",
+                "flutter": "\u003E=3.0.0"
+            },
+            "dependencies": {
+                "collection": "^1.15.0",
+                "meta": "^1.4.0",
+                "riverpod": "2.4.1",
+                "state_notifier": "\u003E=0.7.2 \u003C2.0.0"
+            },
+            "dev_dependencies": {
+                "mockito": "^5.0.0",
+                "stack_trace": "^1.0.0"
+            }
+        }
+    },
+    "versions": [
+        {
+            "version": "0.0.1-pre"
+        }
+    ]
+}

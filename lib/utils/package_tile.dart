@@ -15,7 +15,7 @@ class PackageTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppStyles.primaryColor,
         border: Border.all(
-          color: Colors.grey,
+          color: AppStyles.primaryColor,
         ),
         borderRadius: BorderRadius.circular(10),
       ),

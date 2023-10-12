@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pub_dev_packages/features/home/home.dart';
-import 'routes.dart';
+import 'package:pub_dev_packages/pages/home/home.dart';
+import 'package:pub_dev_packages/pages/package_details/markdown_test.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,11 +15,11 @@ void main() {
     systemNavigationBarColor: Colors.transparent,
   ));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
             selectionColor: Colors.grey,
           )),
       home: const HomeScreen(),
-      routes: routes,
     );
   }
 }
