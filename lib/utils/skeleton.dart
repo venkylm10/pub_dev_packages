@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pub_dev_packages/constants/app_styles.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
 
 class Skeleton extends StatelessWidget {
   final double height;
@@ -19,7 +19,7 @@ class Skeleton extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: AppStyles.primaryColor,
+        color: AppColors.primaryColor,
         border: Border.all(
           color: Colors.grey,
         ),

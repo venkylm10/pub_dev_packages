@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import '../constants/app_styles.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
 
 class ScrollUpButton extends StatelessWidget {
   final void Function()? scrollToTop;
@@ -13,7 +12,7 @@ class ScrollUpButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: scrollToTop,
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppStyles.secondaryColor,
+        backgroundColor: AppColors.secondaryColor,
         shape: const CircleBorder(
             side: BorderSide(
           color: Colors.grey,

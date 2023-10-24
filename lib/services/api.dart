@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pub_dev_packages/constants/model_constants.dart';
+import 'package:pub_dev_packages/models/package_model/matrics/score.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
 import '../globals/endpoints.dart';
 
@@ -11,6 +12,7 @@ final apiServicesProvider = Provider((ref) {
 
 class APIServices {
   final dio = Dio(BaseOptions(baseUrl: EndPoints.baseURL));
+  final dio2 = Dio(BaseOptions(baseUrl: EndPoints.packageBaseUrl));
 
   Future<Map<String, dynamic>> getQueryPage(
       String packageName, int index) async {
@@ -86,5 +88,20 @@ class APIServices {
         json['scorecard']['panaReport']['report']['sections'] as List<dynamic>;
 
     return formattedJson;
+  }
+
+  Future<Map<String, dynamic>> getScores(String packageName) async {
+    final defualtRes = dummyScore;
+    try {
+      final res = await dio2.get(EndPoints.scores(packageName));
+      if (res.statusCode == 200) {
+        return res.data;
+      } else {
+        return defualtRes;
+      }
+    } catch (e) {
+      print(e.toString());
+      return defualtRes;
+    }
   }
 }

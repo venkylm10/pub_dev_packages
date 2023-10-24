@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pub_dev_packages/constants/app_styles.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
 import 'package:pub_dev_packages/pages/search/search_controller.dart';
 import 'package:pub_dev_packages/utils/loader.dart';
 import 'package:pub_dev_packages/utils/package_tile.dart';
@@ -94,9 +94,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: AppStyles.backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         body: Container(
-          color: AppStyles.backgroundColor,
+          color: AppColors.backgroundColor,
           padding: const EdgeInsets.all(15).copyWith(bottom: 0, top: 10),
           child: Column(
             children: [
@@ -117,15 +117,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                          const BorderSide(color: AppStyles.secondaryColor)),
+                          const BorderSide(color: AppColors.secondaryColor)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                          const BorderSide(color: AppStyles.secondaryColor)),
+                          const BorderSide(color: AppColors.secondaryColor)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                          const BorderSide(color: AppStyles.secondaryColor)),
+                          const BorderSide(color: AppColors.secondaryColor)),
                 ),
                 onSubmitted: (value) {
                   _resetParameters();
@@ -148,8 +148,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   Widget _buildPackageListShimmer() {
     return Expanded(
       child: Shimmer.fromColors(
-        baseColor: AppStyles.secondaryColor,
-        highlightColor: AppStyles.whiteColor.withOpacity(0.2),
+        baseColor: AppColors.secondaryColor,
+        highlightColor: AppColors.whiteColor.withOpacity(0.2),
         direction: ShimmerDirection.ttb,
         child: ListView.builder(
           itemCount: 20,

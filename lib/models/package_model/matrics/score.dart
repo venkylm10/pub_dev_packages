@@ -22,3 +22,11 @@ class Score {
     );
   }
 }
+
+final dummyScore = {
+  "grantedPoints": 0,
+  "maxPoints": 0,
+  "likeCount": 0,
+  "popularityScore": 0.0,
+  "lastUpdated": "2023-10-18T18:16:15.028359"
+};

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class AppStyles {
+class AppColors {
   static const backgroundColor = Color.fromARGB(255, 8, 8, 8);
   static const primaryColor = Color.fromARGB(255, 31, 29, 29);
   static const secondaryColor = Color.fromARGB(255, 41, 40, 40);
@@ -13,20 +12,4 @@ class AppStyles {
   static const darkBlue1 = Color(0xff002855);
   static const darkBlue2 = Color(0xff001845);
   static const darkBlue3 = Color(0xff001233);
-
-  static final headingStyle = GoogleFonts.nunitoSans(
-    fontSize: 26,
-    color: blue1,
-    fontWeight: FontWeight.bold,
-  );
-  static final subHeadingStyle = GoogleFonts.nunitoSans(
-    fontSize: 18,
-    color: blue1,
-    fontWeight: FontWeight.bold,
-  );
-  static final normalTextStyle = GoogleFonts.nunitoSans(
-    fontSize: 14,
-    color: whiteColor,
-    fontWeight: FontWeight.normal,
-  );
 }

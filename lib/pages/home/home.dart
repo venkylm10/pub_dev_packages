@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pub_dev_packages/constants/app_styles.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
+import 'package:pub_dev_packages/constants/styles.dart';
+import 'package:pub_dev_packages/constants/assets.dart';
 import 'package:pub_dev_packages/pages/search/search_screen.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
 import 'package:pub_dev_packages/services/api.dart';
 import 'package:pub_dev_packages/utils/scroll_up_botton.dart';
 import 'package:pub_dev_packages/utils/skeleton.dart';
+import 'package:pub_dev_packages/widgets/home/favorites_info_sheet.dart';
 import 'package:pub_dev_packages/widgets/home/home_package_tile.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,30 +76,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  void showFavoritesInfo() {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isDismissible: true,
+      showDragHandle: false,
+      enableDrag: true,
+      builder: (context) {
+        return const ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+          child: FavoritesInfo(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: AppStyles.backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           title: Text(
             "Pub Packages",
             style: AppStyles.headingStyle,
           ),
-          backgroundColor: AppStyles.primaryColor,
+          backgroundColor: AppColors.primaryColor,
           actions: [
             IconButton(
               onPressed: () => navigateToSearchScreen(context),
               icon: const Icon(
                 Icons.search_rounded,
-                color: AppStyles.blue1,
+                color: AppColors.blue1,
               ),
             ),
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(12).copyWith(bottom: 0),
+          padding: const EdgeInsets.all(12).copyWith(bottom: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -103,20 +123,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Some Flutter favorites",
+                    "Some Flutter favorites ",
                     style: AppStyles.subHeadingStyle,
                   ),
-                  Text(
-                    "know more",
-                    style: AppStyles.normalTextStyle.copyWith(
-                      color: AppStyles.blue1,
-                      decoration: TextDecoration.underline,
+                  GestureDetector(
+                    onTap: showFavoritesInfo,
+                    child: IconButton(
+                      onPressed: () => showFavoritesInfo(),
+                      constraints: const BoxConstraints(maxHeight: 30),
+                      padding: const EdgeInsets.only(right: 10),
+                      icon: SvgPicture.asset(
+                        Assets.infoSvg,
+                        height: 18,
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.blue1,
+                          BlendMode.srcIn,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              isLoading ? _buildPackageListShimmer() : _buildPopularPackages(),
+              isLoading ? _buildPackageListShimmer() : _buildFavorites(),
             ],
           ),
         ),
@@ -130,14 +159,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildPackageListShimmer() {
     return Expanded(
       child: Shimmer.fromColors(
-        baseColor: AppStyles.secondaryColor,
-        highlightColor: AppStyles.whiteColor.withOpacity(0.2),
+        baseColor: AppColors.secondaryColor,
+        highlightColor: AppColors.whiteColor.withOpacity(0.2),
         direction: ShimmerDirection.ttb,
         child: ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index) {
             return const Skeleton(
-              height: 45,
+              height: 120,
               width: double.infinity,
             );
           },
@@ -146,7 +175,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildPopularPackages() {
+  Widget _buildFavorites() {
     return Expanded(
       child: ListView.builder(
         controller: scrollController,

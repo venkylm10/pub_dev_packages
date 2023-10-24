@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pub_dev_packages/constants/app_styles.dart';
-import 'package:pub_dev_packages/constants/asset_contants.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
+import 'package:pub_dev_packages/constants/styles.dart';
 import 'package:pub_dev_packages/globals/dart_logo.dart';
 
 class PackageTile extends StatelessWidget {
@@ -13,9 +13,9 @@ class PackageTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-        color: AppStyles.primaryColor,
+        color: AppColors.primaryColor,
         border: Border.all(
-          color: AppStyles.primaryColor,
+          color: AppColors.primaryColor,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -27,7 +27,7 @@ class PackageTile extends StatelessWidget {
           Text(
             packageName,
             style: AppStyles.subHeadingStyle.copyWith(
-              color: AppStyles.whiteColor,
+              color: AppColors.whiteColor,
             ),
           ),
         ],

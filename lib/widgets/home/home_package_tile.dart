@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pub_dev_packages/constants/app_styles.dart';
-import 'package:pub_dev_packages/constants/asset_contants.dart';
+import 'package:pub_dev_packages/constants/colors.dart';
+import 'package:pub_dev_packages/constants/styles.dart';
 import 'package:pub_dev_packages/globals/dart_logo.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
 
@@ -20,9 +20,9 @@ class HomePackageTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10)
           .copyWith(right: 20),
       decoration: BoxDecoration(
-        color: AppStyles.primaryColor,
+        color: AppColors.primaryColor,
         border: Border.all(
-          color: AppStyles.primaryColor,
+          color: AppColors.primaryColor,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -41,12 +41,12 @@ class HomePackageTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: AppStyles.subHeadingStyle
-                      .copyWith(color: AppStyles.whiteColor),
+                      .copyWith(color: AppColors.whiteColor),
                 ),
                 Text(
                   package.latest.version,
                   style: AppStyles.normalTextStyle.copyWith(
-                    color: AppStyles.blue1,
+                    color: AppColors.blue1,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -69,7 +69,7 @@ class HomePackageTile extends StatelessWidget {
                       Text(
                         sdkVersion,
                         style: AppStyles.normalTextStyle.copyWith(
-                          color: AppStyles.blue1,
+                          color: AppColors.blue1,
                         ),
                       ),
                     ],
@@ -85,7 +85,7 @@ class HomePackageTile extends StatelessWidget {
                       Text(
                         flutterVersion,
                         style: AppStyles.normalTextStyle.copyWith(
-                          color: AppStyles.blue1,
+                          color: AppColors.blue1,
                         ),
                       ),
                     ],
