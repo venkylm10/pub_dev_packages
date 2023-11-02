@@ -5,6 +5,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:pub_dev_packages/constants/colors.dart';
 import 'package:pub_dev_packages/constants/styles.dart';
 import 'package:pub_dev_packages/constants/assets.dart';
+import 'package:pub_dev_packages/models/package_model/matrics/score.dart';
+import 'package:pub_dev_packages/pages/home/favourites_controller.dart';
 import 'package:pub_dev_packages/pages/search/search_screen.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
 import 'package:pub_dev_packages/services/api.dart';
@@ -25,6 +27,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final scrollController = ScrollController();
   var favouritePackages = <Package>[];
+  var favScores = <Score>[];
   bool isLoading = true;
   bool _isVisible = false;
 
@@ -59,7 +62,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() {
         isLoading = true;
       });
-      favouritePackages = await ref.read(apiServicesProvider).getFavourites();
+      await ref.read(favPackagesProvider).getFavorites();
+      ref.read(favPackagesProvider).getScores();
       setState(() {
         isLoading = false;
       });
@@ -76,24 +80,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  void showFavoritesInfo() {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      isDismissible: true,
-      showDragHandle: false,
-      enableDrag: true,
-      builder: (context) {
-        return const ClipRRect(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-          child: FavoritesInfo(),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    favouritePackages = ref.watch(favPackagesProvider).favoritePackages;
+    favScores = ref.watch(favPackagesProvider).favScores;
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -133,7 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       constraints: const BoxConstraints(maxHeight: 30),
                       padding: const EdgeInsets.only(right: 10),
                       icon: SvgPicture.asset(
-                        Assets.infoSvg,
+                        Assets.icons.infoSvg,
                         height: 18,
                         colorFilter: const ColorFilter.mode(
                           AppColors.blue1,
@@ -175,6 +165,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  void showFavoritesInfo() {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isDismissible: true,
+      showDragHandle: false,
+      enableDrag: true,
+      builder: (context) {
+        return const ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+          child: FavoritesInfo(),
+        );
+      },
+    );
+  }
+
   Widget _buildFavorites() {
     return Expanded(
       child: ListView.builder(
@@ -182,7 +188,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         itemCount: favouritePackages.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return HomePackageTile(package: favouritePackages[index]);
+          return HomePackageTile(packageIndex: index);
         },
       ),
     );

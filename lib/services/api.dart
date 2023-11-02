@@ -62,6 +62,29 @@ class APIServices {
     }
   }
 
+  Future<Score> getScore(String packageName) async {
+    print("getting score for $packageName");
+    try {
+      final response = await dio2.get(EndPoints.scores(packageName));
+      if (response.statusCode == 200) {
+        final data = response.data as Map<String, dynamic>;
+        final score = Score.fromJson(data);
+        return score;
+      } else {
+        return Score.fromJson(dummyScore);
+      }
+    } on PlatformException catch (e) {
+      if (e.code == 'SOCKET_EXCEPTION') {
+        print("Host lookup error: ${e.message}");
+      } else {
+        print("Platform exception: $e");
+      }
+      return Score.fromJson(dummyScore);
+    } catch (e) {
+      return Score.fromJson(dummyScore);
+    }
+  }
+
   Map<String, dynamic> formatMetricJson(Map<String, dynamic> json) {
     Map<String, dynamic> formattedJson = finalMetricJson;
     print((json['score'] as Map<String, dynamic>).keys);
@@ -88,20 +111,5 @@ class APIServices {
         json['scorecard']['panaReport']['report']['sections'] as List<dynamic>;
 
     return formattedJson;
-  }
-
-  Future<Map<String, dynamic>> getScores(String packageName) async {
-    final defualtRes = dummyScore;
-    try {
-      final res = await dio2.get(EndPoints.scores(packageName));
-      if (res.statusCode == 200) {
-        return res.data;
-      } else {
-        return defualtRes;
-      }
-    } catch (e) {
-      print(e.toString());
-      return defualtRes;
-    }
   }
 }

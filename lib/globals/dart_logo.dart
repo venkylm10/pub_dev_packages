@@ -11,7 +11,7 @@ final dartLogo = Container(
   ),
   child: Center(
     child: Image.asset(
-      Assets.dartLogo,
+      Assets.icons.dartLogo,
       height: 20,
       width: 20,
     ),
