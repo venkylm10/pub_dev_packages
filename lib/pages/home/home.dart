@@ -9,11 +9,10 @@ import 'package:pub_dev_packages/models/package_model/matrics/score.dart';
 import 'package:pub_dev_packages/pages/home/favourites_controller.dart';
 import 'package:pub_dev_packages/pages/search/search_screen.dart';
 import 'package:pub_dev_packages/models/package_model/package_model.dart';
-import 'package:pub_dev_packages/services/api.dart';
 import 'package:pub_dev_packages/utils/scroll_up_botton.dart';
-import 'package:pub_dev_packages/utils/skeleton.dart';
 import 'package:pub_dev_packages/widgets/home/favorites_info_sheet.dart';
-import 'package:pub_dev_packages/widgets/home/home_package_tile.dart';
+import 'package:pub_dev_packages/widgets/home/package_header_tile.dart';
+import 'package:pub_dev_packages/widgets/home/package_header_tile_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -28,8 +27,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final scrollController = ScrollController();
   var favouritePackages = <Package>[];
   var favScores = <Score>[];
-  bool isLoading = true;
   bool _isVisible = false;
+  bool loading = false;
 
   @override
   void initState() {
@@ -59,14 +58,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   void getFavourites() async {
     try {
-      setState(() {
-        isLoading = true;
-      });
-      await ref.read(favPackagesProvider).getFavorites();
-      ref.read(favPackagesProvider).getScores();
-      setState(() {
-        isLoading = false;
-      });
+      await ref.read(favPackagesProvider.notifier).getFavorites();
+      ref.read(favPackagesProvider.notifier).getScores();
     } catch (e) {
       print(e.toString());
     }
@@ -82,8 +75,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    favouritePackages = ref.watch(favPackagesProvider).favoritePackages;
-    favScores = ref.watch(favPackagesProvider).favScores;
+    favouritePackages =
+        ref.watch(favPackagesProvider.notifier).favoritePackages;
+    favScores = ref.watch(favPackagesProvider.notifier).favScores;
+    loading = ref.watch(favPackagesProvider);
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -135,7 +130,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              isLoading ? _buildPackageListShimmer() : _buildFavorites(),
+              loading ? _buildPackageListShimmer() : _buildFavorites(),
             ],
           ),
         ),
@@ -155,10 +150,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index) {
-            return const Skeleton(
-              height: 120,
-              width: double.infinity,
-            );
+            return const PackageHeaderTileShimmer();
           },
         ),
       ),
@@ -187,8 +179,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         controller: scrollController,
         itemCount: favouritePackages.length,
         shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          return HomePackageTile(packageIndex: index);
+          return PackageHeaderTile(packageIndex: index);
         },
       ),
     );

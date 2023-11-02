@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pub_dev_packages/constants/colors.dart';
+import 'package:pub_dev_packages/constants/styles.dart';
 import 'package:pub_dev_packages/pages/search/search_controller.dart';
 import 'package:pub_dev_packages/utils/loader.dart';
-import 'package:pub_dev_packages/utils/package_tile.dart';
+import 'package:pub_dev_packages/utils/search_package_tile.dart';
 import 'package:pub_dev_packages/utils/scroll_up_botton.dart';
 import 'package:pub_dev_packages/utils/skeleton.dart';
 import 'package:shimmer/shimmer.dart';
@@ -157,6 +158,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             return const Skeleton(
               height: 60,
               width: double.infinity,
+              borderRadius: 20,
             );
           },
         ),
@@ -176,13 +178,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             return Center(
               child: nextPageAvailable
                   ? const Loader()
-                  : const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("No more data found"),
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "No more data found",
+                        style: AppStyles.normalTextStyle,
+                      ),
                     ),
             );
           }
-          return PackageTile(
+          return SearchPackageTile(
             packageName: packages[index].package,
           );
         },

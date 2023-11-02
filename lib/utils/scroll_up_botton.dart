@@ -15,7 +15,7 @@ class ScrollUpButton extends StatelessWidget {
         backgroundColor: AppColors.secondaryColor,
         shape: const CircleBorder(
             side: BorderSide(
-          color: Colors.grey,
+          color: AppColors.blue1,
           width: 1,
         )),
       ),
@@ -25,7 +25,7 @@ class ScrollUpButton extends StatelessWidget {
           angle: pi / 2,
           child: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Colors.grey,
+            color: AppColors.blue1,
           ),
         ),
       ),

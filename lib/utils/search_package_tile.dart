@@ -3,9 +3,9 @@ import 'package:pub_dev_packages/constants/colors.dart';
 import 'package:pub_dev_packages/constants/styles.dart';
 import 'package:pub_dev_packages/globals/dart_logo.dart';
 
-class PackageTile extends StatelessWidget {
+class SearchPackageTile extends StatelessWidget {
   final String packageName;
-  const PackageTile({super.key, required this.packageName});
+  const SearchPackageTile({super.key, required this.packageName});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class PackageTile extends StatelessWidget {
         border: Border.all(
           color: AppColors.primaryColor,
         ),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

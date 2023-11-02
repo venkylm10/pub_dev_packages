@@ -12,4 +12,5 @@ class AppColors {
   static const darkBlue1 = Color(0xff002855);
   static const darkBlue2 = Color(0xff001845);
   static const darkBlue3 = Color(0xff001233);
+  static final redColor = Colors.red[300];
 }

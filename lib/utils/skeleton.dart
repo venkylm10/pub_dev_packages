@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:pub_dev_packages/constants/colors.dart';
 
 class Skeleton extends StatelessWidget {
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final double? borderRadius;
+  final Widget? child;
   const Skeleton({
     super.key,
-    required this.height,
-    required this.width,
+    this.height,
+    this.width,
     this.borderRadius,
+    this.child,
   });
 
   @override
@@ -25,6 +27,7 @@ class Skeleton extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(borderRadius ?? 10),
       ),
+      child: child,
     );
   }
 }
